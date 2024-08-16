@@ -1,83 +1,74 @@
-import { Base } from "./Base";
-import { Tweet } from "./Tweet"
-
-export class User extends Base {
-    private static users: User[] = [];
-
-    public name: string;
-    public username: string;
-    protected email: string;
-    protected password: string;
-    public tweets: Tweet[] = [];
-    private following: Set<User> = new Set(); // usuários que o usuário principal está seguindo
-
-    constructor(name: string, username: string, email: string, password: string){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+const Base_1 = require("./Base");
+const Tweet_1 = require("./Tweet");
+class User extends Base_1.Base {
+    static users = [];
+    name;
+    username;
+    email;
+    password;
+    tweets = [];
+    following = new Set(); // usuários que o usuário principal está seguindo
+    constructor(name, username, email, password) {
         super();
         User.isUsernameUnique(username);
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-
         User.users.push(this);
     }
-
-    private static isUsernameUnique(username: string): void {
+    static isUsernameUnique(username) {
         if (User.users.some(user => user.username === username)) {
             throw new Error("Username já está em uso.");
         }
     }
-
-    public sendTweet(content: string, type: string): Tweet {
+    sendTweet(content, type) {
         if (type === 'reply') {
             throw new Error("Você só pode responder um tweet existente.");
-        } else if (type === 'normal') {
-            const newTweet = new Tweet(content, 'normal', this.getId());
+        }
+        else if (type === 'normal') {
+            const newTweet = new Tweet_1.Tweet(content, 'normal', this.getId());
             this.tweets.push(newTweet);
             return newTweet;
-        } else {
+        }
+        else {
             throw new Error("Tipo de tweet inválido. Deve ser 'normal'.");
-        } 
+        }
     }
-
-    public follow(user: User): void {
+    follow(user) {
         if (this === user) {
             throw new Error("Você não pode seguir a si mesmo.");
         }
         this.following.add(user);
     }
-
-    public showFeed(): void {
-        const feed: Tweet[] = [];
-
+    showFeed() {
+        const feed = [];
         // adiciona ao feed os tweets dos usuários que o usuário principal está seguindo
         this.following.forEach(user => {
             feed.push(...user.tweets); // 3 pontos serve para selecionar todos os elementos do array tweets
         });
-
         // adiciona os tweets do próprio usuário principal ao feed
         feed.push(...this.tweets);
-
         console.log(`Feed de ${this.username}:`);
         feed.forEach((tweet, index) => {
             tweet.show();
             console.log('----------------');
         });
     }
-
-    showTweets(): Tweet[] {
+    showTweets() {
         return this.tweets;
     }
-
-    public static getAllUsers(): User[] {
+    static getAllUsers() {
         return User.users;
     }
-
-    public getUsername(): string {
+    getUsername() {
         return this.username;
     }
-
-    public static findById(id: string): User | undefined {
+    static findById(id) {
         return User.users.find(user => user.id === id);
     }
 }
+exports.User = User;

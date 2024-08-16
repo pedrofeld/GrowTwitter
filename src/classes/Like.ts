@@ -1,14 +1,11 @@
-export class Like {
-    private id: string;
-    private userId: string; // ID do usuário que deu like
+import { Base } from "./Base";
+
+export class Like extends Base {
+    private userId: string; // id do usuário q deu like
 
     constructor(userId: string) {
-        this.id = Like.generateId();
+        super(); // o constructor da class base vai gerar o id
         this.userId = userId;
-    }
-
-    private static generateId(): string {
-        return Math.random().toString(36).substr(2, 9);
     }
 
     public getUserId(): string {
