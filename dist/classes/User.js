@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const Base_1 = require("./Base");
 const Tweet_1 = require("./Tweet");
+const users_1 = require("../dataBase/users");
 class User extends Base_1.Base {
-    static users = [];
     name;
     username;
     email;
@@ -18,10 +18,10 @@ class User extends Base_1.Base {
         this.username = username;
         this.email = email;
         this.password = password;
-        User.users.push(this);
+        users_1.users.push(this);
     }
     static isUsernameUnique(username) {
-        if (User.users.some(user => user.username === username)) {
+        if (users_1.users.some(user => user.username === username)) {
             throw new Error("Username já está em uso.");
         }
     }
@@ -62,13 +62,13 @@ class User extends Base_1.Base {
         return this.tweets;
     }
     static getAllUsers() {
-        return User.users;
+        return users_1.users;
     }
     getUsername() {
         return this.username;
     }
     static findById(id) {
-        return User.users.find(user => user.id === id);
+        return users_1.users.find(user => user.id === id); // Alteração: Procurando o usuário no banco de dados
     }
 }
 exports.User = User;

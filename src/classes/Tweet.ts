@@ -1,9 +1,9 @@
 import { Base } from "./Base";
 import { User } from "./User";
 import { Like } from "./Like";
+import { tweets } from "../dataBase/tweets";
 
 export class Tweet extends Base {
-    private static tweets: Tweet[] = [];
 
     public content: string;
     private type: string;
@@ -17,7 +17,7 @@ export class Tweet extends Base {
         this.type = type;
         this.userId = userId;
         
-        Tweet.tweets.push(this);
+        tweets.push(this);
     }
 
     public reply(content: string, userId: string): Tweet {
@@ -64,6 +64,6 @@ export class Tweet extends Base {
     }
 
     public static getAllTweets(): Tweet[] {
-        return Tweet.tweets;
+        return tweets;
     }
 }

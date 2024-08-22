@@ -4,8 +4,8 @@ exports.Tweet = void 0;
 const Base_1 = require("./Base");
 const User_1 = require("./User");
 const Like_1 = require("./Like");
+const Tweets_1 = require("../dataBase/Tweets");
 class Tweet extends Base_1.Base {
-    static tweets = [];
     content;
     type;
     userId; // ID do usuário que criou o tweet
@@ -16,7 +16,7 @@ class Tweet extends Base_1.Base {
         this.content = content;
         this.type = type;
         this.userId = userId;
-        Tweet.tweets.push(this);
+        Tweets_1.tweets.push(this);
     }
     reply(content, userId) {
         if (this.type !== 'normal') {
@@ -56,7 +56,7 @@ class Tweet extends Base_1.Base {
         });
     }
     static getAllTweets() {
-        return Tweet.tweets;
+        return Tweets_1.tweets;
     }
 }
 exports.Tweet = Tweet;

@@ -1,9 +1,8 @@
 import { Base } from "./Base";
 import { Tweet } from "./Tweet"
+import { users } from "../dataBase/users";
 
 export class User extends Base {
-    private static users: User[] = [];
-
     public name: string;
     public username: string;
     protected email: string;
@@ -19,11 +18,11 @@ export class User extends Base {
         this.email = email;
         this.password = password;
 
-        User.users.push(this);
+        users.push(this);
     }
 
     private static isUsernameUnique(username: string): void {
-        if (User.users.some(user => user.username === username)) {
+        if (users.some(user => user.username === username)) {
             throw new Error("Username já está em uso.");
         }
     }
@@ -70,7 +69,7 @@ export class User extends Base {
     }
 
     public static getAllUsers(): User[] {
-        return User.users;
+        return users;
     }
 
     public getUsername(): string {
@@ -78,6 +77,6 @@ export class User extends Base {
     }
 
     public static findById(id: string): User | undefined {
-        return User.users.find(user => user.id === id);
+        return users.find(user => user.id === id); // Alteração: Procurando o usuário no banco de dados
     }
 }
