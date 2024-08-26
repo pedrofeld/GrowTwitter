@@ -46,8 +46,17 @@ export class Tweet extends Base {
             throw new Error("Usuário não encontrado");
         }
 
-        if (this.likes.length > 0) {
-            console.log(`[${this.likes.length} likes]`); // mostra a qtd de likes se > 0
+        const likeCount = this.likes.length;
+        if (likeCount === 1) {
+            const liker = User.findById(this.likes[0].getUserId());
+            if (liker) {
+                console.log(`@${liker.getUsername()} curtiu`);
+            }
+        } else if (likeCount > 1) {
+            const firstLiker = User.findById(this.likes[0].getUserId());
+            if (firstLiker) {
+                console.log(`@${firstLiker.getUsername()} e mais ${likeCount - 1} usuários curtiram`);
+            }
         }
 
         if (this.replies.length > 0) {

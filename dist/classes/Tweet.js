@@ -42,8 +42,18 @@ class Tweet extends Base_1.Base {
         else {
             throw new Error("Usuário não encontrado");
         }
-        if (this.likes.length > 0) {
-            console.log(`[${this.likes.length} likes]`); // mostra a qtd de likes se > 0
+        const likeCount = this.likes.length;
+        if (likeCount === 1) {
+            const liker = User_1.User.findById(this.likes[0].getUserId());
+            if (liker) {
+                console.log(`@${liker.getUsername()} curtiu`);
+            }
+        }
+        else if (likeCount > 1) {
+            const firstLiker = User_1.User.findById(this.likes[0].getUserId());
+            if (firstLiker) {
+                console.log(`@${firstLiker.getUsername()} e mais ${likeCount - 1} usuários curtiram`);
+            }
         }
         if (this.replies.length > 0) {
             console.log(`[${this.replies.length} replies]`); // mostra a qtd de replies se > 0
