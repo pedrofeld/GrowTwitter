@@ -7,8 +7,11 @@ const user3 = new User_1.User("User3", "user3", "user3@example.com", "password12
 const tweet1 = user1.sendTweet("Tweet do User1 tipo normal", "normal");
 const tweet2 = user2.sendTweet("Tweet do User2 tipo normal", "normal");
 const tweet3 = user3.sendTweet("Tweet do User3 tipo normal", "normal");
-// user2 vai seguir o usuário 1
+// user2 vai seguir o usuário 1 e 3
 user2.follow(user1);
+user2.follow(user3);
+// mostra a lista de usuários que o user2 segue
+user2.getFollowing();
 // user3 curte o tweet1
 tweet1.like(user3);
 // user2 responde ao tweet1

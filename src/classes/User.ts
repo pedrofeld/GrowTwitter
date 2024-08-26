@@ -79,4 +79,11 @@ export class User extends Base {
     public static findById(id: string): User | undefined {
         return users.find(user => user.id === id); // Alteração: Procurando o usuário no banco de dados
     }
+
+    public getFollowing(): void {
+        console.log(`Usuários que ${this.getUsername()} está seguindo:`);
+        this.following.forEach(user => {
+            console.log(user.getUsername());
+        });
+    }
 }
