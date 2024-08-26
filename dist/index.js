@@ -10,7 +10,7 @@ const tweet3 = user3.sendTweet("Tweet do User3 tipo normal", "normal");
 // user2 vai seguir o usuário 1 e 3
 user2.follow(user1);
 user2.follow(user3);
-// mostra a lista de usuários que o user2 segue
+// mostra a lista de usuários que o user2 segue -- aqui começa a exibição no console
 user2.getFollowing();
 // user3 e user2 curtem o tweet1
 tweet1.like(user3);

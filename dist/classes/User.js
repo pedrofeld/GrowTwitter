@@ -68,7 +68,7 @@ class User extends Base_1.Base {
         return this.username;
     }
     static findById(id) {
-        return users_1.users.find(user => user.id === id); // Alteração: Procurando o usuário no banco de dados
+        return users_1.users.find(user => user.id === id); // procura o usuário no banco de dados
     }
     getFollowing() {
         console.log(`Usuários que ${this.getUsername()} está seguindo:`);

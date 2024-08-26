@@ -77,7 +77,7 @@ export class User extends Base {
     }
 
     public static findById(id: string): User | undefined {
-        return users.find(user => user.id === id); // Alteração: Procurando o usuário no banco de dados
+        return users.find(user => user.id === id); // procura o usuário no banco de dados
     }
 
     public getFollowing(): void {
